@@ -14,17 +14,18 @@ Making a Phone Call
 
 The :class:`Calls` resource allows you to make outgoing calls. Before a call
 can be successfully started, you'll need a to set up a url endpoint which
-outputs valid `RCML <http://www.restcomm.com/docs/api/twiml/>`_.
+outputs valid `RCML <http://docs.telestax.com/restcomm-pages/>`_.
 
 .. code-block:: ruby
 
     require 'restcomm-ruby'
 
-    # To find these visit https://www.restcomm.com/user/account
+    # To find these visit http://docs.telestax.com/restcomm-pages/
     account_sid = "ACXXXXXXXXXXXXXXXXX"
     auth_token = "YYYYYYYYYYYYYYYYYY"
+    host = "XXX.XXX.XXX.XXX"
 
-    @client = Restcomm::REST::Client.new account_sid, auth_token
+    @client = Restcomm::REST::Client.new account_sid, auth_token, host
     @call = @client.calls.create(
       to: "9991231234",
       from: "9991231234",
@@ -44,11 +45,12 @@ you can use the client to retrieve that record.
 
     require 'restcomm-ruby'
 
-    # To find these visit https://www.restcomm.com/user/account
+    # To find these visit http://docs.telestax.com/restcomm-pages/
     account_sid = "ACXXXXXXXXXXXXXXXXX"
     auth_token = "YYYYYYYYYYYYYYYYYY"
+    host = "XXX.XXX.XXX.XXX"
 
-    @client = Restcomm::REST::Client.new account_sid, auth_token
+    @client = Restcomm::REST::Client.new account_sid, auth_token, host
     sid = "CA12341234"
     @call = @client.calls.get(sid)
 
@@ -59,11 +61,12 @@ Delete a Call Record
 
     require 'restcomm-ruby'
 
-    # To find these visit https://www.restcomm.com/user/account
+    # To find these visit http://docs.telestax.com/restcomm-pages/
     account_sid = "ACXXXXXXXXXXXXXXXXX"
     auth_token = "YYYYYYYYYYYYYYYYYY"
+    host = "XXX.XXX.XXX.XXX"
 
-    @client = Restcomm::REST::Client.new account_sid, auth_token
+    @client = Restcomm::REST::Client.new account_sid, auth_token, host
     sid = "CA12341234"
     @call = @client.calls.get(sid)
 
@@ -82,11 +85,12 @@ just like the :class:`Calls` resource itself.
 
     require 'restcomm-ruby'
 
-    # To find these visit https://www.restcomm.com/user/account
+    # To find these visit http://docs.telestax.com/restcomm-pages/
     account_sid = "ACXXXXXXXXXXXXXXXXX"
     auth_token = "YYYYYYYYYYYYYYYYYY"
+    host = "XXX.XXX.XXX.XXX"
 
-    @client = Restcomm::REST::Client.new account_sid, auth_token
+    @client = Restcomm::REST::Client.new account_sid, auth_token, host
     sid = "CA12341234"
     @call = @client.calls.get(sid)
 
@@ -102,11 +106,12 @@ However, what if you only have a `CallSid`, and not the actual
 
     require 'restcomm-ruby'
 
-    # To find these visit https://www.restcomm.com/user/account
+    # To find these visit http://docs.telestax.com/restcomm-pages/
     account_sid = "ACXXXXXXXXXXXXXXXXX"
     auth_token = "YYYYYYYYYYYYYYYYYY"
+    host = "XXX.XXX.XXX.XXX"
 
-    @client = Restcomm::REST::Client.new account_sid, auth_token
+    @client = Restcomm::REST::Client.new account_sid, auth_token, host
     sid = "CA24234"
     puts @client.notifications.list(call: sid)
     puts @client.recordings.list(call: sid)
@@ -123,11 +128,12 @@ redirect them as necessary
 
     require 'restcomm-ruby'
 
-    # To find these visit https://www.restcomm.com/user/account
+    # To find these visit http://docs.telestax.com/restcomm-pages/
     account_sid = "ACXXXXXXXXXXXXXXXXX"
     auth_token = "YYYYYYYYYYYYYYYYYY"
+    host = "XXX.XXX.XXX.XXX"
 
-    @client = Restcomm::REST::Client.new account_sid, auth_token
+    @client = Restcomm::REST::Client.new account_sid, auth_token, host
     @calls = @client.calls.list(status: "in-progress")
 
     @calls.each do |call|
@@ -141,11 +147,12 @@ Ending all live calls is also possible
 
     require 'restcomm-ruby'
 
-    # To find these visit https://www.restcomm.com/user/account
+    # To find these visit http://docs.telestax.com/restcomm-pages/
     account_sid = "ACXXXXXXXXXXXXXXXXX"
     auth_token = "YYYYYYYYYYYYYYYYYY"
+    host = "XXX.XXX.XXX.XXX"
 
-    @client = Restcomm::REST::Client.new account_sid, auth_token
+    @client = Restcomm::REST::Client.new account_sid, auth_token, host
     @calls = @client.calls.list(status: "in-progress")
 
     @calls.each do |call|
@@ -161,11 +168,12 @@ resource to update the record without having to use :meth:`get` first.
 
     require 'restcomm-ruby'
 
-    # To find these visit https://www.restcomm.com/user/account
+    # To find these visit http://docs.telestax.com/restcomm-pages/
     account_sid = "ACXXXXXXXXXXXXXXXXX"
     auth_token = "YYYYYYYYYYYYYYYYYY"
+    host = "XXX.XXX.XXX.XXX"
 
-    @client = Restcomm::REST::Client.new account_sid, auth_token
+    @client = Restcomm::REST::Client.new account_sid, auth_token, host
     sid = "CA12341234"
     @client.calls.get(sid).redirect_to("http://twimlets.com/holdmusic?Bucket=com.restcomm.music.ambient")
 
@@ -175,7 +183,7 @@ Hanging up the call also works.
 
     require 'restcomm-ruby'
 
-    # To find these visit https://www.restcomm.com/user/account
+    # To find these visit http://docs.telestax.com/restcomm-pages/
     account_sid = "ACXXXXXXXXXXXXXXXXX"
     auth_token = "YYYYYYYYYYYYYYYYYY"
 

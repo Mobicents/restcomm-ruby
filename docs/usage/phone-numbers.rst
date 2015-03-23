@@ -8,7 +8,7 @@ With Restcomm you can search and buy real phone numbers, just using the API.
 
 For more information, see the
 `IncomingPhoneNumbers REST Resource
-<http://www.restcomm.com/docs/api/rest/incoming-phone-numbers>`_ documentation.
+<http://docs.telestax.com/restcomm-pages/>`_ documentation.
 
 
 Searching and Buying a Number
@@ -22,11 +22,12 @@ Once we find one, we'll purchase it for our account.
 
     require 'restcomm-ruby'
 
-    # To find these visit https://www.restcomm.com/user/account
+    # To find these visit http://docs.telestax.com/restcomm-pages/
     account_sid = "ACXXXXXXXXXXXXXXXXX"
     auth_token = "YYYYYYYYYYYYYYYYYY"
+    host = "XXX.XXX.XXX.XXX"
 
-    @client = Restcomm::REST::Client.new account_sid, auth_token
+    @client = Restcomm::REST::Client.new account_sid, auth_token, host
     numbers = @client.available_phone_numbers.get('US').list(area_code: "530")
 
     if numbers.any?
@@ -120,11 +121,12 @@ If you've found a phone number you want, you can purchase the number.
 
     require 'restcomm-ruby'
 
-    # To find these visit https://www.restcomm.com/user/account
+    # To find these visit http://docs.telestax.com/restcomm-pages/
     account_sid = "ACXXXXXXXXXXXXXXXXX"
     auth_token = "YYYYYYYYYYYYYYYYYY"
+    host = "XXX.XXX.XXX.XXX"
 
-    @client = Restcomm::REST::Client.new account_sid, auth_token
+    @client = Restcomm::REST::Client.new account_sid, auth_token, host
     @number = @client.available_phone_numbers.purchase(
       phone_number: "+15305431234"
     )
@@ -139,17 +141,18 @@ Updating Properties on a Number
 To update the properties on a phone number, call :meth:`update`
 on the phone number object, with any of the parameters
 listed in the `IncomingPhoneNumbers Resource documentation
-<http://www.restcomm.com/docs/api/rest/incoming-phone-numbers>`_
+<http://docs.telestax.com/restcomm-pages/>`_
 
 .. code-block:: ruby
 
     require 'restcomm-ruby'
 
-    # To find these visit https://www.restcomm.com/user/account
+    # To find these visit http://docs.telestax.com/restcomm-pages/
     account_sid = "ACXXXXXXXXXXXXXXXXX"
     auth_token = "YYYYYYYYYYYYYYYYYY"
+    host = "XXX.XXX.XXX.XXX"
 
-    @client = Restcomm::REST::Client.new account_sid, auth_token
+    @client = Restcomm::REST::Client.new account_sid, auth_token, host
     @client.available_phone_numbers.list.each do |number|
       number.update(
         voice_url: "http://twimlets.com/holdmusic?" \
@@ -167,11 +170,12 @@ An :class:`Application` encapsulates all necessary URLs for use with phone numbe
 
     require 'restcomm-ruby'
 
-    # To find these visit https://www.restcomm.com/user/account
+    # To find these visit http://docs.telestax.com/restcomm-pages/
     account_sid = "ACXXXXXXXXXXXXXXXXX"
     auth_token = "YYYYYYYYYYYYYYYYYY"
+    host = "XXX.XXX.XXX.XXX"
 
-    @client = Restcomm::REST::Client.new account_sid, auth_token
+    @client = Restcomm::REST::Client.new account_sid, auth_token, host
 
     phone_sid = "PNXXXXXXXXXXXXXXXXX"
 

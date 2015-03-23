@@ -5,7 +5,7 @@ Messages
 ============
 
 For more information, see the
-`Message REST Resource <http://www.restcomm.com/docs/api/rest/message>`_
+`Message REST Resource <http://docs.telestax.com/restcomm-pages/>`_
 documentation.
 
 
@@ -18,11 +18,12 @@ Send a text message in only a few lines of code.
 
     require 'restcomm-ruby'
 
-    # To find these visit https://www.restcomm.com/user/account
+    # To find these visit http://docs.telestax.com/restcomm-pages/
     account_sid = "ACXXXXXXXXXXXXXXXXX"
     auth_token = "YYYYYYYYYYYYYYYYYY"
+    host = "XXX.XXX.XXX.XXX"
 
-    @client = Restcomm::REST::Client.new account_sid, auth_token
+    @client = Restcomm::REST::Client.new account_sid, auth_token, host
 
     @message = @client.messages.create(
       to: "+13216851234",
@@ -44,11 +45,12 @@ To send a picture, set :attr:`media_url` to the url of the picture you wish to s
 
     require 'restcomm-ruby'
 
-    # To find these visit https://www.restcomm.com/user/account
+    # To find these visit http://docs.telestax.com/restcomm-pages/
     account_sid = "ACXXXXXXXXXXXXXXXXX"
     auth_token = "YYYYYYYYYYYYYYYYYY"
+    host = "XXX.XXX.XXX.XXX"
 
-    @client = Restcomm::REST::Client.new account_sid, auth_token
+    @client = Restcomm::REST::Client.new account_sid, auth_token, host
 
     @message = @client.messages.create(
       to: "+15558676309",
@@ -79,11 +81,12 @@ Retrieving Sent Messages
 
     require 'restcomm-ruby'
 
-    # To find these visit https://www.restcomm.com/user/account
+    # To find these visit http://docs.telestax.com/restcomm-pages/
     account_sid = "ACXXXXXXXXXXXXXXXXX"
     auth_token = "YYYYYYYYYYYYYYYYYY"
+    host = "XXX.XXX.XXX.XXX"
 
-    @client = Restcomm::REST::Client.new account_sid, auth_token
+    @client = Restcomm::REST::Client.new account_sid, auth_token, host
 
     @client.messages.list.each do |message|
       puts message.body
@@ -96,11 +99,12 @@ Redacting or Deleting Messages
 
     require 'restcomm-ruby'
 
-    # To find these visit https://www.restcomm.com/user/account
+    # To find these visit http://docs.telestax.com/restcomm-pages/
     account_sid = "ACXXXXXXXXXXXXXXXXX"
     auth_token = "YYYYYYYYYYYYYYYYYY"
+    host = "XXX.XXX.XXX.XXX"
 
-    @client = Restcomm::REST::Client.new account_sid, auth_token
+    @client = Restcomm::REST::Client.new account_sid, auth_token, host
     @msg_sid = 'MM123'
     @msg = @client.messages.get('MM123')
     # Deletes the Body field contents
@@ -120,11 +124,12 @@ The following will only show messages to "+5466758723" on January 1st, 2011.
 
     require 'restcomm-ruby'
 
-    # To find these visit https://www.restcomm.com/user/account
+    # To find these visit http://docs.telestax.com/restcomm-pages/
     account_sid = "ACXXXXXXXXXXXXXXXXX"
     auth_token = "YYYYYYYYYYYYYYYYYY"
+    host = "XXX.XXX.XXX.XXX"
 
-    @client = Restcomm::REST::Client.new account_sid, auth_token
+    @client = Restcomm::REST::Client.new account_sid, auth_token, host
 
     @messages = @client.messages.list(
       to: "+5466758723",

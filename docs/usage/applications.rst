@@ -9,7 +9,7 @@ data that tells Restcomm how to behave when one of your Restcomm numbers receive
 a call or message.
 
 For more information, see the `Application REST Resource
-<http://www.restcomm.com/docs/api/rest/applications>`_ documentation.
+<http://docs.telestax.com/restcomm-pages/>`_ documentation.
 
 
 Listing Your Applications
@@ -21,11 +21,12 @@ The following code will print out the :attr:`friendly_name` for each :class:`App
 
     require 'restcomm-ruby'
 
-    # To find these visit https://www.restcomm.com/user/account
+    # To find these visit http://docs.telestax.com/restcomm-pages/
     account_sid = "ACXXXXXXXXXXXXXXXXX"
     auth_token = "YYYYYYYYYYYYYYYYYY"
+    host = "XXX.XXX.XXX.XXX"
 
-    @client = Restcomm::REST::Client.new account_sid, auth_token
+    @client = Restcomm::REST::Client.new account_sid, auth_token, host
     @client.applications.each do |app|
       puts app.friendly_name
     end
@@ -40,11 +41,11 @@ You can filter applications by FriendlyName
 
     require 'restcomm-ruby'
 
-    # To find these visit https://www.restcomm.com/user/account
+    # To find these visit http://docs.telestax.com/restcomm-pages/
     account_sid = "ACXXXXXXXXXXXXXXXXX"
     auth_token = "YYYYYYYYYYYYYYYYYY"
 
-    @client = Restcomm::REST::Client.new account_sid, auth_token
+    @client = Restcomm::REST::Client.new account_sid, auth_token, host
     @client.applications.list(friendly_name: 'FOO').each do |app|
       puts app.sid
     end
@@ -61,11 +62,12 @@ accepts many other arguments for url configuration.
 
     require 'restcomm-ruby'
 
-    # To find these visit https://www.restcomm.com/user/account
+    # To find these visit http://docs.telestax.com/restcomm-pages/
     account_sid = "ACXXXXXXXXXXXXXXXXX"
     auth_token = "YYYYYYYYYYYYYYYYYY"
+    host = "XXX.XXX.XXX.XXX"
 
-    @client = Restcomm::REST::Client.new account_sid, auth_token
+    @client = Restcomm::REST::Client.new account_sid, auth_token, host
     @application = @client.applications.create(
       friendly_name: "My New App"
     )
@@ -77,14 +79,14 @@ Updating an Application
 
     require 'restcomm-ruby'
 
-    # To find these visit https://www.restcomm.com/user/account
+    # To find these visit http://docs.telestax.com/restcomm-pages/
     account_sid = "ACXXXXXXXXXXXXXXXXX"
     auth_token = "YYYYYYYYYYYYYYYYYY"
+    host = "XXX.XXX.XXX.XXX"
 
-    @client = Restcomm::REST::Client.new account_sid, auth_token
+    @client = Restcomm::REST::Client.new account_sid, auth_token, host
 
-    url = "http://twimlets.com/holdmusic?Bucket=com.restcomm.music.ambient"
-    app_sid = 'AP123' # the app you'd like to update
+
 
     @application = @client.applications.get(app_sid)
     @application.update(voice_url: url)
@@ -96,11 +98,12 @@ Deleting an Application
 
     require 'restcomm-ruby'
 
-    # To find these visit https://www.restcomm.com/user/account
+    # To find these visit http://docs.telestax.com/restcomm-pages/
     account_sid = "ACXXXXXXXXXXXXXXXXX"
     auth_token = "YYYYYYYYYYYYYYYYYY"
+    host = "XXX.XXX.XXX.XXX"
 
-    @client = Restcomm::REST::Client.new account_sid, auth_token
+    @client = Restcomm::REST::Client.new account_sid, auth_token, host
 
     app_sid = 'AP123' # the app you'd like to delete
     @client.applications.get(app_sid)

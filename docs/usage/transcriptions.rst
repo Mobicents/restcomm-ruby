@@ -9,7 +9,7 @@ Transcriptions are generated from recordings via the
 Using the API, you can only read your transcription records.
 
 For more information, see the `Transcriptions REST Resource
-<http://www.restcomm.com/docs/api/rest/transcription>`_ documentation.
+<http://docs.telestax.com/restcomm-pages/>`_ documentation.
 
 
 Listing Your Transcriptions
@@ -21,11 +21,13 @@ The following code will print out the length of each :class:`Transcription`.
 
     require 'restcomm-ruby'
 
-    # To find these visit https://www.restcomm.com/user/account
+    # To find these visit http://docs.telestax.com/restcomm-pages/
     account_sid = "ACXXXXXXXXXXXXXXXXX"
     auth_token = "YYYYYYYYYYYYYYYYYY"
+    host = "XXX.XXX.XXX.XXX"
 
-    @client = Restcomm::REST::Client.new account_sid, auth_token
+
+    @client = Restcomm::REST::Client.new account_sid, auth_token, host
     @client.transcriptions.list().each do |transcription|
       puts transcription.duration
     end

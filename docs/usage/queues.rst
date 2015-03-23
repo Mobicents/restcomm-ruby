@@ -5,8 +5,8 @@ Queues and Members
 ==============================
 
 For more information, see the
-`Queue REST Resource <http://www.restcomm.com/docs/api/rest/queue>`_
-and `Member REST Resource <http://www.restcomm.com/docs/api/rest/member>`_
+`Queue REST Resource <http://docs.telestax.com/restcomm-pages/>`_
+and `Member REST Resource <http://docs.telestax.com/restcomm-pages/>`_
 documentation.
 
 
@@ -17,11 +17,12 @@ Listing Queues
 
     require 'restcomm-ruby'
 
-    # To find these visit https://www.restcomm.com/user/account
+    # To find these visit http://docs.telestax.com/restcomm-pages/
     account_sid = "ACXXXXXXXXXXXXXXXXX"
     auth_token = "YYYYYYYYYYYYYYYYYY"
+    host = "XXX.XXX.XXX.XXX"
 
-    @client = Restcomm::REST::Client.new account_sid, auth_token
+    @client = Restcomm::REST::Client.new account_sid, auth_token, host
     @queues = @client.queues.list
 
     @queues.each do |queue|
@@ -39,11 +40,12 @@ represents all current calls in the queue.
 
     require 'restcomm-ruby'
 
-    # To find these visit https://www.restcomm.com/user/account
+    # To find these visit http://docs.telestax.com/restcomm-pages/
     account_sid = "ACXXXXXXXXXXXXXXXXX"
     auth_token = "YYYYYYYYYYYYYYYYYY"
+    host = "XXX.XXX.XXX.XXX"
 
-    @client = Restcomm::REST::Client.new account_sid, auth_token
+    @client = Restcomm::REST::Client.new account_sid, auth_token, host
     @queue = @client.queues.get("QU123")
 
     @queue.members.list().each do |member|
@@ -66,14 +68,16 @@ first call in the queue.
 
     require 'restcomm-ruby'
 
-    # To find these visit https://www.restcomm.com/user/account
+    # To find these visit http://docs.telestax.com/restcomm-pages/
     account_sid = "ACXXXXXXXXXXXXXXXXX"
     auth_token = "YYYYYYYYYYYYYYYYYY"
+    host = "XXX.XXX.XXX.XXX"
 
-    @client = Restcomm::REST::Client.new account_sid, auth_token
+    @client = Restcomm::REST::Client.new account_sid, auth_token, host
 
     queue_sid = "QUAAAAAAAAAAAAA"
     call_sid = "CAXXXXXXXXXXXXXX"
+
 
     @members = @client.queues.get(queue_sid).members
 
@@ -98,15 +102,16 @@ default values are 'Front' and 'GET'
 
     require 'restcomm-ruby'
 
-    # To find these visit https://www.restcomm.com/user/account
+    # To find these visit http://docs.telestax.com/restcomm-pages/
     account_sid = "ACXXXXXXXXXXXXXXXXX"
     auth_token = "YYYYYYYYYYYYYYYYYY"
+    host = "XXX.XXX.XXX.XXX"
 
-    @client = Restcomm::REST::Client.new account_sid, auth_token
+    @client = Restcomm::REST::Client.new account_sid, auth_token, host
 
     queue_sid = "QUAAAAAAAAAAAAA"
 
     @members = @client.queues.get(queue_sid).members
 
     # Dequeue the first call in the queue
-    puts @members.dequeue('http://www.restcomm.com/welcome/call')
+    puts @members.dequeue('http://SOME_WEBSITE/welcome/call')

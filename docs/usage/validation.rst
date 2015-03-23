@@ -13,7 +13,7 @@ Luckily, there's an easy way to validate that incoming requests are from Restcom
 and Restcomm alone.
 
 An in-depth guide to our security features can be `found in our online
-documentation <http://www.restcomm.com/docs/security>`_.
+documentation <http://docs.telestax.com/restcomm-pages/>`_.
 
 Before you can validate requests, you'll need four pieces of information:
 

@@ -4,17 +4,17 @@
 Generate Capability Tokens
 ===========================
 
-`Restcomm Client <http://www.restcomm.com/api/client>`_ allows you to make and
+`Restcomm Client <http://docs.telestax.com/restcomm-pages/>`_ allows you to make and
 receive connections in the browser.
 You can place a call to a phone on the PSTN network,
 all without leaving your browser. See the `Restcomm Client Quickstart
-<http:/www.restcomm.com/docs/quickstart/client>`_ to get up and running with
+<http://docs.telestax.com/restcomm-pages/>`_ to get up and running with
 Restcomm Client.
 
 Capability tokens are used by `Restcomm Client
-<http://www.restcomm.com/api/client>`_ to provide connection
+<http://docs.telestax.com/restcomm-pages/>`_ to provide connection
 security and authorization. The `Capability Token documentation
-<https://www.restcomm.com/docs/client/capability-tokens>`_ explains in depth the purpose and
+<http://docs.telestax.com/restcomm-pages/>`_ explains in depth the purpose and
 features of these tokens.
 
 :class:`Restcomm::Util::Capability` is responsible for the creation of these
@@ -49,7 +49,7 @@ like so:
 Allow Incoming Connections
 ==============================
 
-Before a device running `Restcomm Client <http://www.restcomm.com/api/client>`_
+Before a device running `Restcomm Client <http://docs.telestax.com/restcomm-pages/>`_
 can recieve incoming connections, the instance must first register a name
 (such as "Alice" or "Bob").
 The :meth:`allow_client_incoming` method adds the client name to the
@@ -64,7 +64,7 @@ Allow Outgoing Connections
 ==============================
 
 To make an outgoing connection from a
-`Restcomm Client <http://www.restcomm.com/api/client>`_ device,
+`Restcomm Client <http://docs.telestax.com/restcomm-pages/>`_ device,
 you'll need to choose a
 `Restcomm Application <http://www.restcomm.com/docs/api/rest/applications>`_
 to handle RCML URLs. A Restcomm Application is a collection of URLs responsible

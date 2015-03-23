@@ -4,8 +4,8 @@
 Conferences and Participants
 ==============================
 
-For more information, see the `Conference REST Resource <http://www.restcomm.com/docs/api/rest/conference>`_
-and `Participant REST Resource <http://www.restcomm.com/docs/api/rest/participant>`_ documentation.
+For more information, see the `Conference REST Resource <http://docs.telestax.com/restcomm-pages/>`_
+and `Participant REST Resource <http://docs.telestax.com/restcomm-pages/>`_ documentation.
 
 
 Listing Conferences
@@ -15,11 +15,12 @@ Listing Conferences
 
     require 'restcomm-ruby'
 
-    # To find these visit https://www.restcomm.com/user/account
+    # To find these visit http://docs.telestax.com/restcomm-pages/
     account_sid = "ACXXXXXXXXXXXXXXXXX"
     auth_token = "YYYYYYYYYYYYYYYYYY"
+    host = "XXX.XXX.XXX.XXX"
 
-    @client = Restcomm::REST::Client.new account_sid, auth_token
+    @client = Restcomm::REST::Client.new account_sid, auth_token, host
     @conferences = @client.conferences.list()
 
     @conferences.each do |conference|
@@ -38,11 +39,12 @@ will return a list of all in-progress conferences and print their friendly name.
 
     require 'restcomm-ruby'
 
-    # To find these visit https://www.restcomm.com/user/account
+    # To find these visit http://docs.telestax.com/restcomm-pages/
     account_sid = "ACXXXXXXXXXXXXXXXXX"
     auth_token = "YYYYYYYYYYYYYYYYYY"
+    host = "XXX.XXX.XXX.XXX"
 
-    @client = Restcomm::REST::Client.new account_sid, auth_token
+    @client = Restcomm::REST::Client.new account_sid, auth_token, host
     @conferences = @client.conferences.list(status: "in-progress")
 
     @conference.each do |conference|
@@ -59,11 +61,12 @@ Each :class:`Conference` has a :attr:`participants` instance which represents al
 
     require 'restcomm-ruby'
 
-    # To find these visit https://www.restcomm.com/user/account
+    # To find these visit http://docs.telestax.com/restcomm-pages/
     account_sid = "ACXXXXXXXXXXXXXXXXX"
     auth_token = "YYYYYYYYYYYYYYYYYY"
+    host = "XXX.XXX.XXX.XXX"
 
-    @client = Restcomm::REST::Client.new account_sid, auth_token
+    @client = Restcomm::REST::Client.new account_sid, auth_token, host
     @conference = @client.conferences.get("CF123")
 
     @conference.participants.list.each.do |paricipant|
@@ -89,11 +92,12 @@ code kicks out the first participant and mutes the rest.
 
     require 'restcomm-ruby'
 
-    # To find these visit https://www.restcomm.com/user/account
+    # To find these visit http://docs.telestax.com/restcomm-pages/
     account_sid = "ACXXXXXXXXXXXXXXXXX"
     auth_token = "YYYYYYYYYYYYYYYYYY"
+    host = "XXX.XXX.XXX.XXX"
 
-    @client = Restcomm::REST::Client.new account_sid, auth_token
+    @client = Restcomm::REST::Client.new account_sid, auth_token, host
     @participants = @client.conferences.get("CF123").participants.list()
 
     return if @participants.empty?

@@ -10,7 +10,7 @@ name and address of the user to be on file with Restcomm to purchase and own a
 phone number.
 
 For more information, see the `Address REST Resource
-<http://www.restcomm.com/docs/api/rest/address`_ documentation.
+<http://docs.telestax.com/restcomm-pages/`_ documentation.
 
 Creating an Address
 -------------------
@@ -22,11 +22,12 @@ addition to location information and an optional friendly name.
 
     require 'restcomm-ruby'
 
-    # To find these visit https://www.restcomm.com/user/account
+    # To find these visit http://docs.telestax.com/restcomm-pages/
     account_sid = "ACXXXXXXXXXXXXXXXXX"
     auth_token = "YYYYYYYYYYYYYYYYYY"
+    host = "XXX.XXX.XXX.XXX"
 
-    @client = Restcomm::REST::Client.new account_sid, auth_token
+    @client = Restcomm::REST::Client.new account_sid, auth_token, host
     @address = @client.addresses.create(
       friendly_name: "Homer",
       customer_name: "Homer Simpson",

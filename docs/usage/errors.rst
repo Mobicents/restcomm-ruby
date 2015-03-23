@@ -16,9 +16,11 @@ handled appropriately.
     # To find these visit https://www.restcomm.com/user/account
     account_sid = "ACXXXXXXXXXXXXXXXXX"
     auth_token = "YYYYYYYYYYYYYYYYYY"
+    host = "XXX.XXX.XXX.XXX"
+	
 
     begin
-      @client = Restcomm::REST::Client.new account_sid, auth_token
+      @client = Restcomm::REST::Client.new account_sid, auth_token, host
       client.messages.create({
         from: '+1234567890',
         to: '+1234567890',

@@ -8,8 +8,12 @@ Managing Restcomm accounts is straightforward.
 Update your own account information or create and manage multiple subaccounts.
 
 For more information, see the
-`Account REST Resource <http://www.restcomm.com/docs/api/rest/account>`_
+`Account REST Resource <http://docs.telestax.com/restcomm-pages/>`_
 documentation.
+
+
+Go to the restcomm-ruby/examples/examples.rb for detailed examples of 
+of how to use the restcomm-ruby wrapper
 
 
 Updating Account Information
@@ -22,11 +26,12 @@ Right now the only valid attribute is :attr:`friendly_name`.
 
     require 'restcomm-ruby'
 
-    # To find these visit https://www.restcomm.com/user/account
+    # To find these visit http://docs.telestax.com/restcomm-pages/
     account_sid = "ACXXXXXXXXXXXXXXXXX"
     auth_token = "YYYYYYYYYYYYYYYYYY"
+    host = "XXX.XXX.XXX.XXX"
 
-    @client = Restcomm::REST::Client.new account_sid, auth_token
+    @client = Restcomm::REST::Client.new account_sid, auth_token, host
     @account = @client.accounts.get(account_sid)
     @account.update(friendly_name: "My Awesome Account")
 
@@ -40,11 +45,12 @@ Subaccounts are easy to make.
 
     require 'restcomm-ruby'
 
-    # To find these visit https://www.restcomm.com/user/account
+    # To find these visit http://docs.telestax.com/restcomm-pages/
     account_sid = "ACXXXXXXXXXXXXXXXXX"
     auth_token = "YYYYYYYYYYYYYYYYYY"
+    host = "XXX.XXX.XXX.XXX"
 
-    @client = Restcomm::REST::Client.new account_sid, auth_token
+    @client = Restcomm::REST::Client.new account_sid, auth_token, host
     @subaccount = @client.accounts.create(name: "My Awesome SubAccount")
 
 
@@ -57,11 +63,12 @@ Say you have a subaccount for Client X with an account sid `AC123`
 
     require 'restcomm-ruby'
 
-    # To find these visit https://www.restcomm.com/user/account
+    # To find these visit http://docs.telestax.com/restcomm-pages/
     account_sid = "ACXXXXXXXXXXXXXXXXX"
     auth_token = "YYYYYYYYYYYYYYYYYY"
+    host = "XXX.XXX.XXX.XXX"
 
-    @client = Restcomm::REST::Client.new account_sid, auth_token
+    @client = Restcomm::REST::Client.new account_sid, auth_token, host
 
     # Client X's subaccount
     @subaccount = @client.accounts.get('AC123')

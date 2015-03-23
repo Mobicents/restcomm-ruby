@@ -42,7 +42,7 @@ All attributes are keyword arguments.
 
     <?xml version="1.0" encoding="utf-8"?>
     <Response>
-      <Play loop="3">https://api.restcomm.com/cowbell.mp3</Play>
+      <Play loop="3">https://SOME_WEBSITE/cowbell.mp3</Play>
     <Response>
 
 Any example of nesting nouns in verbs
