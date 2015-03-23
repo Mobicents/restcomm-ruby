@@ -4,14 +4,14 @@
 
 # restcomm-ruby
 
-A module for using the Restcomm REST API and generating valid [RCML](http://www.restcomm.com/docs/api/twiml/ "RCML - Restcomm Markup Language"). [Click here to read the full documentation.][documentation]
+A module for using the Restcomm REST API and generating valid [RCML](http://docs.telestax.com/restcomm-pages/ "RCML - Restcomm Markup Language"). [Click here to read the full documentation.][documentation]
 
 ## Installation
 
 To install using [Bundler][bundler] grab the latest stable version:
 
 ```ruby
-gem 'restcomm-ruby', '~> 3.12'
+gem 'restcomm-ruby', '~> 1.2.0'
 ```
 
 To manually install `restcomm-ruby` via [Rubygems][rubygems] simply gem install:
@@ -23,7 +23,7 @@ gem install restcomm-ruby
 To build and install the development branch yourself from the latest source:
 
 ```bash
-git clone git@github.com:restcomm/restcomm-ruby.git
+git clone git@github.com:Mobicents/restcomm-ruby.git
 cd restcomm-ruby
 make install
 ```
@@ -39,15 +39,12 @@ require 'restcomm-ruby'
 # put your own credentials here
 account_sid = 'ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
 auth_token = 'yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy'
+host = 'IP_ADDRESS_RESTCOMM_INSTANCE'
 
 # set up a client to talk to the Restcomm REST API
-@client = Restcomm::REST::Client.new account_sid, auth_token
+@client = Restcomm::REST::Client.new account_sid, auth_token, host
 
-# alternatively, you can preconfigure the client like so
-Restcomm.configure do |config|
-  config.account_sid = account_sid
-  config.auth_token = auth_token
-end
+
 
 # and then you can create a new client without parameters
 @client = Restcomm::REST::Client.new
@@ -79,8 +76,8 @@ end
 ``` ruby
 # make a new outgoing call
 @call = @client.calls.create(
-  from: '+14159341234',
-  to: '+18004567890',
+  from: 'sip:+14159341234',
+  to: 'sip:+18004567890',
   url: 'http://example.com/call-handler'
 )
 
@@ -185,9 +182,6 @@ This will print the following (except for the whitespace):
 This library supports and is [tested against][travis] the following Ruby
 implementations:
 
-- Ruby 2.2.0
-- Ruby 2.1.0
-- Ruby 2.0.0
 - Ruby 1.9.3
 - [JRuby][jruby]
 - [Rubinius][rubinius]
@@ -197,7 +191,7 @@ implementations:
 There are more detailed examples in the included [examples][examples]
 directory. Also for thoose upgrading, the [upgrade guide][upgrade] is available in the [restcomm-ruby github wiki][wiki].
 
-[capability]: https://github.com/restcomm/restcomm-ruby/wiki/Capability
+[capability]: https://github.com/Mobicents/restcomm-ruby/wiki/Capability
 [builder]: http://builder.rubyforge.org/
 [examples]: https://github.com/restcomm/restcomm-ruby/blob/master/examples
 [documentation]: http://restcomm-ruby.readthedocs.org/en/latest
@@ -206,7 +200,6 @@ directory. Also for thoose upgrading, the [upgrade guide][upgrade] is available 
 [bundler]: http://bundler.io
 [rubygems]: http://rubygems.org
 [gem]: https://rubygems.org/gems/restcomm
-[travis]: http://travis-ci.org/restcomm/restcomm-ruby
 [codeclimate]: https://codeclimate.com/github/restcomm/restcomm-ruby
 [jruby]: http://www.jruby.org
 [rubinius]: http://rubini.us
