@@ -60,16 +60,7 @@ host = 'IP_ADDRESS_RESTCOMM_INSTANCE'
 )
 ```
 
-### Send an MMS
 
-``` ruby
-@client.messages.create(
-  from: '+14159341234',
-  to: '+16105557069',
-  body: 'Hey there!',
-  media_url: 'http://example.com/smileyface.jpg'
-)
-```
 
 ### Do Some Stuff With Calls
 
@@ -101,48 +92,7 @@ host = 'IP_ADDRESS_RESTCOMM_INSTANCE'
 @client.calls.list("start_time>" => "2013-05-13") # Notice we omit the "=" in the "start_time>=" parameter because it is automatically added
 ```
 
-### Buy a Phone Number
 
-``` ruby
-# print some available numbers
-@numbers = @client.available_phone_numbers.get('US').local.list(
-  contains: 'AWESOME'
-)
-@numbers.each {|num| puts num.phone_number}
-
-# buy the first one
-@number = @numbers[0].phone_number
-@client.incoming_phone_numbers.create(phone_number: @number)
-```
-
-## Getting Started With Client Capability Tokens
-
-If you just need to generate a Capability Token for use with Restcomm Client, you
-can do this:
-
-``` ruby
-require 'rubygems' # not necessary with ruby 1.9 but included for completeness
-require 'restcomm-ruby'
-
-# put your own account credentials here:
-account_sid = 'AC043dcf9844e13758bc3a36a84c29761'
-auth_token = '62ea81de3a5b413254eb263595357c69'
-
-# set up
-capability = Restcomm::Util::Capability.new account_sid, auth_token
-
-# allow outgoing calls to an application
-capability.allow_client_outgoing 'AP89a0180a1a4ddf1da954efca349b7a20'
-
-# allow incoming calls to 'andrew'
-capability.allow_client_incoming 'andrew'
-
-# generate the token string
-@token = capability.generate
-```
-
-There is a slightly more detailed document in the [Capability][capability]
-section of the wiki.
 
 ## Getting Started With RCML
 
@@ -182,7 +132,7 @@ This will print the following (except for the whitespace):
 This library supports and is [tested against][travis] the following Ruby
 implementations:
 
-- Ruby 1.9.3
+- Ruby 1.9.3 and above
 - [JRuby][jruby]
 - [Rubinius][rubinius]
 
