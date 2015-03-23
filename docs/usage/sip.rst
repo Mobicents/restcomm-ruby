@@ -6,7 +6,7 @@ Getting started with Sip In
 ===========================
 
 If you're unfamiliar with SIP, please see the `SIP API Documentation
-<https://www.restcomm.com/docs/api/rest/sip>`_ on our website. If you want
+<http://docs.telestax.com/restcomm-pages/>`_ on our website. If you want
 to make a regular phone call, take a look at :doc:`phone-calls`.
 
 Creating a Sip Domain
@@ -20,11 +20,12 @@ under sip.restcomm.com.
 
     require 'restcomm-ruby'
 
-    # To find these visit https://www.restcomm.com/user/account
+    # To find these visit http://docs.telestax.com/restcomm-pages/
     account_sid = "ACXXXXXXXXXXXXXXXXX"
     auth_token = "YYYYYYYYYYYYYYYYYY"
+    host = "XXX.XXX.XXX.XXX"
 
-    @client = Restcomm::REST::Client.new account_sid, auth_token
+    @client = Restcomm::REST::Client.new account_sid, auth_token, host
 
     @domain = @client.sip.domains.create(
       friendly_name: "The Office Domain",
@@ -44,11 +45,12 @@ to individual ip addresses. To do this, you'll first need to create an
 
     require 'restcomm-ruby'
 
-    # To find these visit https://www.restcomm.com/user/account
+    # To find these visit http://docs.telestax.com/restcomm-pages/
     account_sid = "ACXXXXXXXXXXXXXXXXX"
     auth_token = "YYYYYYYYYYYYYYYYYY"
+    host = "XXX.XXX.XXX.XXX"
 
-    @client = Restcomm::REST::Client.new account_sid, auth_token
+    @client = Restcomm::REST::Client.new account_sid, auth_token, host
 
     @ip_acl = @client.sip.ip_access_control_lists.create(
       friendly_name: "The Office IpAccessControlList"
@@ -64,11 +66,12 @@ Now it's time to add an :class:`IpAddress` to your new :class:`IpAccessControlLi
 
     require 'restcomm-ruby'
 
-    # To find these visit https://www.restcomm.com/user/account
+    # To find these visit http://docs.telestax.com/restcomm-pages/
     account_sid = "ACXXXXXXXXXXXXXXXXX"
     auth_token = "YYYYYYYYYYYYYYYYYY"
+    host = "XXX.XXX.XXX.XXX"
 
-    @client = Restcomm::REST::Client.new account_sid, auth_token
+    @client = Restcomm::REST::Client.new account_sid, auth_token, host
 
     @ip_address = @client.sip.ip_access_control_lists.get(
       "AL456",  # IpAccessControlList sid
@@ -88,11 +91,12 @@ associate them. To do this, create an :class:`IpAccessControlListMapping`.
 
     require 'restcomm-ruby'
 
-    # To find these visit https://www.restcomm.com/user/account
+    # To find these visit http://docs.telestax.com/restcomm-pages/
     account_sid = "ACXXXXXXXXXXXXXXXXX"
     auth_token = "YYYYYYYYYYYYYYYYYY"
+    host = "XXX.XXX.XXX.XXX"
 
-    @client = Restcomm::REST::Client.new account_sid, auth_token
+    @client = Restcomm::REST::Client.new account_sid, auth_token, host
 
     @ip_acl_mapping = @client.sip.domains.get(
       "SD456",  # SIP Domain sid

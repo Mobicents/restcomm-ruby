@@ -6,12 +6,13 @@ require 'restcomm-ruby'
 
 # put your Restcomm credentials here. you can find your AccountSid and AuthToken
 # at the top of your account dashboard page located at:
-#   https://www.restcomm.com/user/account
+#   
 account_sid = 'AC043dcf9844e04758bc3a36a84c29761'
 auth_token = '62ea81de3a5b414154eb263595357c69'
+host = 'IP_Address_Restcomm_Instance'
 
 # set up a client
-client = Restcomm::REST::Client.new(account_sid, auth_token)
+client = Restcomm::REST::Client.new(account_sid, auth_token, host)
 
 calls = client.calls.list
 

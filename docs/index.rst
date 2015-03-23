@@ -19,7 +19,7 @@ Getting Started
 The :doc:`/getting-started` will get you up and running in a few quick minutes.
 This guide assumes you understand the core concepts of Restcomm.
 If you've never used Restcomm before, don't fret! Just read
-`about how Restcomm works <http://www.restcomm.com/api/>`_ and then jump in!
+`about how Restcomm works <http://docs.telestax.com/restcomm-pages/>`_ and then jump in!
 
 
 .. _user-guide:
@@ -95,15 +95,15 @@ See the :doc:`/changelog` for version history.
 Support and Development
 ==========================
 All development occurs over on
-`Github <https://github.com/restcomm/restcomm-ruby>`_. To checkout the source,
+`Github <https://github.com/Mobicents/restcomm-ruby>`_. To checkout the source,
 
 .. code-block:: bash
 
-    $ git clone git@github.com:restcomm/restcomm-ruby.git
+    $ git clone git@github.com:Mobicents/restcomm-ruby.git
 
 
 Report bugs using the Github
-`issue tracker <https://github.com/restcomm/restcomm-ruby/issues>`_.
+`issue tracker <https://github.com/Mobicents/restcomm-ruby/issues>`_.
 
 If you have questions that aren't answered by this documentation,
 ask the `#restcomm IRC channel <irc://irc.freenode.net/#restcomm>`_
