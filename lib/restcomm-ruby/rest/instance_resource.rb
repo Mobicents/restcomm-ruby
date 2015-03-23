@@ -39,7 +39,7 @@ module Restcomm
       def update(params = {})
         raise "Can't update a resource without a REST Client" unless @client
         set_up_properties_from(@client.post(@path, params))
-        self
+        #self
       end
 
       ##
@@ -61,6 +61,7 @@ module Restcomm
         @client.delete @path
       end
 
+
       ##
       # Lazily load attributes of the instance resource by waiting to fetch it
       # until an attempt is made to access an unknown attribute.
@@ -73,7 +74,7 @@ module Restcomm
       protected
 
       def set_up_properties_from(hash)
-        eigenclass = class << self; self; end
+       eigenclass = class << self; self; end
         hash.each do |p,v|
           property = derestify p
           unless ['client', 'updated'].include? property

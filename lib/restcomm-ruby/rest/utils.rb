@@ -3,7 +3,7 @@ module Restcomm
     module Utils
 
       def restify(something)
-        return key_map(something, :restify) if something.is_a? Hash
+        return key_map(something, :restify) if something.is_a?  Hash
         string = something.to_s
         string.split('_').map do |string_part|
           string_part[0,1].capitalize + string_part[1..-1]
@@ -11,7 +11,7 @@ module Restcomm
       end
 
       def derestify(something)
-        return key_map(something, :derestify) if something.is_a? Hash
+        return key_map(something, :derestify) if something.is_a?  Hash
         string = something.to_s
         string = string[0,1].downcase + string[1..-1]
         string.gsub(/[A-Z][a-z]*/) { |s| "_#{s.downcase}" }

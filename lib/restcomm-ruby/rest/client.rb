@@ -3,6 +3,7 @@ module Restcomm
     class BaseClient
       include Restcomm::Util
       include Restcomm::REST::Utils
+require 'active_support/all'
 
 
       HTTP_HEADERS = {
@@ -120,11 +121,29 @@ module Restcomm
           if retries_left > 0 then retries_left -= 1; retry else raise end
         end
         if response.body and !response.body.empty?
-	object = response.body.gsub(":", "=>") #convert Restcomm response to use rocket 
-        object = MultiJson.load(object)
+	#object = response.body.gsub(":", "=>") #convert Restcomm response to use rocket 
+	#object = response.body 
+
+=begin
+    ########## Convert Restcomm XML response into Json format
+	if response.body.include?("RestcommResponse")
+		
+		r = Hash.from_xml(response.body)
+		response.body = r["RestcommResponse"]["Call"].to_s
+		#response.body = s.gsub!("=>",": ")
+	
+	end
+=end
+
+	
+	object = MultiJson.load(response.body)
+
+
+
         end
         if response.kind_of? Net::HTTPClientError
           raise Restcomm::REST::RequestError.new object['message'], object['code']
+
         end
         object
       end
@@ -239,7 +258,7 @@ module Restcomm
       # === <tt>proxy_user: 'username'</tt>
       #
       # The user name to use for authentication with the proxy. Defaults to nil.
-      #
+      # 
       # === <tt>proxy_pass: 'password'</tt>
       #
       # The password to use for authentication with the proxy. Defaults to nil.
@@ -266,22 +285,40 @@ module Restcomm
         define_method method do |path, *args|
           params = restify args[0]; params = {} if params.empty?
           unless args[1] # build the full path unless already given
-
          path = "/restcomm#{path}.json"
 
-	#remove the prepended ext Json
-	#the ex. http://192.168.1.9:8080/restcomm/2012-04-24/Accounts/ACae6e420f425248d6a26948c17a9e2acf.json
-	#generates an error and doesn't show Available account details.
-	#the code below removes the .json extension only in the context mentioned above
-	
-      		if path.include?("#{@account_sid}.json" )
-			path.gsub!(".json", "")
-		end
 
-      		if path.include?("/Local.json" )
-			path.gsub!("/Local.json", "/Local")
-		end
 
+
+	if method == :get
+
+		if  path.include?("/Accounts/#{@account_sid}.json" )
+				path.gsub!("/Accounts/#{@account_sid}.json", "/Accounts.json/#{@account_sid}")
+	 	end
+		
+
+		if   path.match(/Calls\/CA.*\/Recordings.json/ )		
+			path.gsub!("/Recordings.json", ".json")
+	 	end
+
+		if  path.include?("/Accounts/#{@account_sid}.json" )
+				path.gsub!("/Accounts/#{@account_sid}.json", "/Accounts.json/#{@account_sid}")
+	 	end
+	end
+
+
+#### Make Restcomm path compatible with Twilio -  convert Restcomm 2012-04-24/Accounts/ACae6e420f425248d6a26948c17a9e2acf/Calls/CA76d50db1b78d4a34bfaa708bc669d7db.json to /2012-04-24/Accounts/ACae6e420f425248d6a26948c17a9e2acf/Calls.json/CA76d50db1b78d4a34bfaa708bc669d7db 
+
+	if method == :post
+
+		if   path.match(/Calls\/CA.*/ )
+			call_sid = path.split("/").last	
+			call_sid = call_sid.gsub!(".json", "")	
+			path.gsub!("Calls/#{call_sid}.json", "Calls.json/#{call_sid}")
+			
+			
+	 	end
+	end	
 
 	 path << "?#{url_encode(params)}" if method == :get && !params.empty?
           end

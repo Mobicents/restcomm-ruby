@@ -1,62 +1,113 @@
-# examples version 3
+#Welcomme to Restcomm 
+#The examples below will help you get started using Restcomm-ruby wraper
+# examples version 1.2.0
+# You must make sure the @account_sid, @auth_token and @host variables are correctly filled
+#
+#The @host is the IP address on which Restcomm is running (This could be a local install or a remote)
+#
+#
+#
+####### Account Settings #########
 
-@account_sid = 'AC043dcf9844e04758bc3a36a84c29761'
-@auth_token = '62ea81de3a5b414154eb263595357c69'
+require 'restcomm-ruby'
+
+
+
+@account_sid = 'ACae6e420f425248d6a26948c17a9e2acf'
+@auth_token = 'YourPassWord' #
+@host = '192.168.1.3'  #IP address of your Restcomm instance  
 # set up a client
-@client = Restcomm::REST::Client.new(@account_sid, @auth_token)
+@client = Restcomm::REST::Client.new(@account_sid, @auth_token, @host)
 
 ################ ACCOUNTS ################
 
 # shortcut to grab your account object (account_sid is inferred from the client's auth credentials)
 @account = @client.account
 
-# list your (sub)accounts
-@client.accounts.list
+#list of all accounts and (sub)accounts
+	@client.accounts.list.each do |x|
+	puts "Account name: " + x.friendly_name + "      Account Sid: " + x.sid 
+	end
 
-# grab an account instance resource if you know the sid
-@account = @client.accounts.get(@account_sid)
-# http round trip happens here
-puts @account.friendly_name
+# grab an account instance resource of a given account and display the friendly_name
+	puts @client.accounts.get(@account_sid).friendly_name
+
+# grab an account instance resource of a given account and display the sid
+	puts @client.accounts.get(@account_sid).sid
 
 # update an account's friendly name
-@client.accounts.get(@account_sid).update(friendly_name: 'A Fabulous Friendly Name')
+@client.accounts.get(@account_sid).update(friendly_name: 'A Super Cool Name')
+
 
 ################ CALLS ################
 
-# print a list of calls (all parameters optional)
-@account.calls.list(
-  page: 0,
-  page_size: 1000,
-  start_time: '2010-09-01'
-).each do |call|
-  puts call.sid
+	
+# print a list of calls (without parameters)
+	 @account.calls.list().each do |x|
+	 puts "Call Sid " + x.sid + "      Call Status: " + x.status 
+	 end
+
+
+# print a list of calls (with some optional parameters)
+
+@account.calls.list(page: 0, page_size: 1000,).each do |x|
+  puts x.sid
 end
 
-# get a particular call and list its recording urls
-@account.calls.get('CAXXXXXXX').recordings.list.each do |r|
+# get a particular call and list its status
+puts @account.calls.get('CAb358e7b349924ece8a968f7089222039').status
+
+# get a particular call and list its start time
+puts @account.calls.get('CAb358e7b349924ece8a968f7089222039').start_time
+
+# get a particular call and list its recording URI
+puts @account.calls.get('CAb358e7b349924ece8a968f7089222039').subresource_uris["recordings"]
+
+#################### RECORDINGS ##################################
+
+#get a list of recordings linked to the current account and output the call SID and date created
+@account.recordings.list.each do |x|
+  puts "Recording SID: " + x.call_sid + " **** " + "Date Created: " + x.date_created
+end
+
+
+#get a list of recordings URLs with ext .wav 
+#use ext .mp3 to get the corresponding  mp3 list
+@account.recordings.list.each do |r|
   puts r.wav
 end
 
+
+
+#################### MAKING CALLS ##################################
+
 # make a new outgoing call. returns a call object just like calls.get
 @call = @account.calls.create(
-  from: '+14159341234',
-  to: '+18004567890',
-  url: 'http://example.com/call-handler'
+  from: 'sip:+32145687',
+  to: 'sip:+1111@192.168.1.3',
+  url: 'http://192.168.1.3:8080/restcomm-rvd/services/apps/test/controller'
 )
+
 
 # cancel the call if not already in progress
 @account.calls.get(@call.sid).update(status: 'canceled')
 # or equivalently
 @call.update(status: 'canceled')
-# or simply
-@call.cancel
+
+
+
+####### Terminate a call that is currently in-progress ########
+
+@account.calls.get(@call.sid).update(status: 'completed')
+
+
 
 # redirect and then terminate a call
-@call = @account.calls.get('CA386025c9bf5d6052a1d1ea42b4d16662')
-@call.update(url: 'http://example.com/call-redirect')
+
+@call.update(url: 'http://192.168.1.3:8080/restcomm/demos/hello-play.xml')
 @call.update(status: 'completed')
 # or, use the aliases...
-@call.redirect_to('http://example.com/call-redirect')
+@call.redirect_to('http://192.168.1.3:8080/restcomm/demos/hello-play.xml')
 @call.hangup
 
 ################ SMS MESSAGES ################
@@ -76,7 +127,7 @@ puts @account.messages.get('SMXXXXXXXX').body
   body: 'Hey there!'
 )
 
-# send an mms
+# send an mms the from DID should be a number from your  DID provider
 @account.messages.create(
   from: '+14159341234',
   to: '+16105557069',
@@ -90,8 +141,9 @@ puts @account.messages.get('SMXXXXXXXX').body
 
 # print some available numbers
 @numbers = @account.available_phone_numbers.get('US').local.list(
-  contains: 'AWESOME'
+  AreaCode: '305'
 )
+
 @numbers.each { |num| puts num.phone_number }
 
 # buy the first one

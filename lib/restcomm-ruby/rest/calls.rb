@@ -13,6 +13,7 @@ module Restcomm
 
     class Call < InstanceResource
       def initialize(path, client, params={})
+
         super path, client, params
         resource :recordings, :notifications, :feedback
       end
@@ -22,6 +23,9 @@ module Restcomm
       end
 
       def cancel
+	
+	raise "*********#{params}"
+
         update status: 'canceled'
       end
 

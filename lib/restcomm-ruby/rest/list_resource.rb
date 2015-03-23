@@ -14,8 +14,11 @@ module Restcomm
           'Addresses' => 'Address'
         }
         @path, @client = path, client
+
         resource_name = self.class.name.split('::')[-1]
+
         instance_name = custom_names.fetch(resource_name, resource_name.chop)
+
 
         # The next line grabs the enclosing module. Necessary for resources
         # contained in their own submodule like /SMS/Messages
@@ -23,11 +26,13 @@ module Restcomm
         full_module_path = if parent_module == "REST"
           Restcomm::REST
         else
-          Restcomm::REST.const_get parent_module
+          Restcomm::REST.const_get(parent_module)
         end
 
-        @instance_class = full_module_path.const_get instance_name
+        @instance_class = full_module_path.const_get(instance_name)
+	
         @list_key, @instance_id_key = derestify(resource_name), 'sid'
+
       end
 
       def inspect # :nodoc:
@@ -46,13 +51,26 @@ module Restcomm
       # filters for each list resource type are defined by Restcomm.
       def list(params={}, full_path=false)
         raise "Can't get a resource list without a REST Client" unless @client
-        response = @client.get @path, params, full_path
-        resources = response[@list_key]
-        path = full_path ? @path.split('.')[0] : @path
-        resource_list = resources.map do |resource|
-          @instance_class.new "#{path}/#{resource[@instance_id_key]}", @client,
-            resource
-        end
+
+
+        response = @client.get( @path, params, full_path)
+
+
+	if @list_key == "calls" 
+		resources = response[@list_key]
+	elsif @list_key == "recordings" 	 
+		resources = response
+	else
+		resources = response
+	end	
+
+	path = full_path ? @path.split('.')[0] : @path
+	
+	resource_list = resources.map do |resource| 
+        @instance_class.new("#{path}/#{resource[@instance_id_key]}", @client, resource)
+	end
+
+
         # set the +total+ and +next_page+ properties on the array
         client, list_class = @client, self.class
         resource_list.instance_eval do
@@ -66,8 +84,13 @@ module Restcomm
             end
           }
         end
+
         resource_list
+
+
       end
+
+
 
       ##
       # Ask Restcomm for the total number of items in the list.
@@ -101,7 +124,8 @@ module Restcomm
         raise "Can't create a resource without a REST Client" unless @client
         response = @client.post @path, params
         @instance_class.new "#{@path}/#{response[@instance_id_key]}", @client,
-          response
+      
+	response
       end
     end
   end
