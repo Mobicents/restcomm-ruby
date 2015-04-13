@@ -55,21 +55,28 @@ module Restcomm
 
         response = @client.get( @path, params, full_path)
 
-
-	if @list_key == "calls" 
+		if @list_key == "calls" 
 		resources = response[@list_key]
-	elsif @list_key == "recordings" 	 
-		resources = response
-	else
-		resources = response
-	end	
+		elsif @list_key == "recordings" 	 
+			resources = response
 
+		else
+			resources = response
+		end	
+
+	#raise "********#{@instance_class}*******#{resources[0]["FriendlyName"]}***************"
 	path = full_path ? @path.split('.')[0] : @path
 	
-	resource_list = resources.map do |resource| 
-        @instance_class.new("#{path}/#{resource[@instance_id_key]}", @client, resource)
+	if @list_key == "available_phone_numbers"
+		resources = response["RestcommResponse"]["AvailablePhoneNumbers"]["AvailablePhoneNumber"]
+		resource_list = resources.map do |resource| 
+		@instance_class.new("#{path}/#{resource[@instance_id_key]}", @client, resource)
+		end
+	else	
+		resource_list = resources.map do |resource| 
+		@instance_class.new("#{path}/#{resource[@instance_id_key]}", @client, resource)
+		end
 	end
-
 
         # set the +total+ and +next_page+ properties on the array
         client, list_class = @client, self.class

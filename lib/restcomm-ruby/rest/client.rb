@@ -120,27 +120,18 @@ require 'active_support/all'
           raise if request.class == Net::HTTP::Post
           if retries_left > 0 then retries_left -= 1; retry else raise end
         end
+
         if response.body and !response.body.empty?
-	#object = response.body.gsub(":", "=>") #convert Restcomm response to use rocket 
-	#object = response.body 
-
-=begin
-    ########## Convert Restcomm XML response into Json format
-	if response.body.include?("RestcommResponse")
-		
-		r = Hash.from_xml(response.body)
-		response.body = r["RestcommResponse"]["Call"].to_s
-		#response.body = s.gsub!("=>",": ")
-	
-	end
-=end
-
-	
-	object = MultiJson.load(response.body)
 
 
-
+		if response.body.include? ("<RestcommResponse>")
+			m = Hash.from_xml(response.body).to_json 
+			object = MultiJson.load(m)
+		else
+		object = MultiJson.load(response.body)
+		end
         end
+
         if response.kind_of? Net::HTTPClientError
           raise Restcomm::REST::RequestError.new object['message'], object['code']
 
@@ -287,9 +278,6 @@ require 'active_support/all'
           unless args[1] # build the full path unless already given
          path = "/restcomm#{path}.json"
 
-
-
-
 	if method == :get
 
 		if  path.include?("/Accounts/#{@account_sid}.json" )
@@ -299,6 +287,10 @@ require 'active_support/all'
 
 		if   path.match(/Calls\/CA.*\/Recordings.json/ )		
 			path.gsub!("/Recordings.json", ".json")
+	 	end
+
+		if  path.include?("/Accounts/#{@account_sid}/AvailablePhoneNumbers/US/Local.json" )
+				path.gsub!("/AvailablePhoneNumbers/US/Local.json", "/AvailablePhoneNumbers/US/Local")
 	 	end
 
 		if  path.include?("/Accounts/#{@account_sid}.json" )

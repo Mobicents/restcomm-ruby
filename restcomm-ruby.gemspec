@@ -6,8 +6,8 @@ require 'restcomm-ruby/version'
 Gem::Specification.new do |spec|
   spec.name          = 'restcomm-ruby'
   spec.version       = Restcomm::VERSION
-  spec.authors       = ['Andrew Benton']
-  spec.email         = ['andrew@twilio.com']
+  spec.authors       = ['Charles Roufay']
+  spec.email         = ['info@telestax.com']
   spec.summary       = 'A simple library for communicating with the Restcomm REST API, building RCML, and generating Restcomm Client Capability Tokens'
   spec.description   = 'A simple library for communicating with the Restcomm REST API, building RCML, and generating Restcomm Client Capability Tokens'
   spec.homepage      = 'http://github.com/restcomm/restcomm-ruby'
